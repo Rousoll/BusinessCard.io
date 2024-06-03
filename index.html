@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Card Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .form-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            box-sizing: border-box;
+        }
+        .form-container input,
+        .form-container button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-container button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Enter Your Contact Info</h2>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="text" id="title" placeholder="Title" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="tel" id="phone" placeholder="Phone" required>
+            <input type="url" id="linkedin" placeholder="LinkedIn URL">
+            <input type="url" id="github" placeholder="GitHub URL">
+            <button type="submit">Generate Business Card</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const title = document.getElementById('title').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const linkedin = document.getElementById('linkedin').value;
+            const github = document.getElementById('github').value;
+            
+            const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}`;
+            
+            window.location.href = `card.html?${queryString}`;
+        });
+    </script>
+</body>
+</html>

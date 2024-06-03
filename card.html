@@ -1,15 +1,14 @@
-<!-- card.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Card</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: 'Lato', sans-serif;
+            font-family: 'Cairo', sans-serif;
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             margin: 0;
             padding: 0;
@@ -46,15 +45,14 @@
         }
 
         .icon-group {
-            margin-top: 25px;
+            margin-top: 15px;
         }
 
         .icon-box {
-            position: relative;
-            font-size: 24px;
-            height: 45px;
-            width: 45px;
-            line-height: 45px;
+            font-size: 20px;
+            height: 35px;
+            width: 35px;
+            line-height: 35px;
             display: inline-block;
             border: 2px solid #062c6e;
             border-radius: 5px; /* Rounded corners */
@@ -71,12 +69,12 @@
 
         .icon-box:hover {
             background-color: #062c6e;
-            color: #062c6e;
+            color: #fff;
         }
 
         .website a {
             color: #062c6e;
-             text-decoration: none;
+            text-decoration: none;
         }
 
         .website a:hover {
@@ -113,90 +111,82 @@
         <button class="vcard-button" id="downloadLink" onclick="downloadContact()">Save Contact</button>
     </div>
 
-<script>
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const name = urlParams.get('name') || '';
-    const title = urlParams.get('title') || '';
-    const email = urlParams.get('email') || '';
-    const phone = urlParams.get('phone') || '';
-    const linkedin = urlParams.get('linkedin') || '';
-    const github = urlParams.get('github') || '';
-    const instagram = urlParams.get('instagram') || '';
-    const twitter = urlParams.get('twitter') || '';
-    const website = urlParams.get('website') || '';
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const name = urlParams.get('name') || '';
+        const title = urlParams.get('title') || '';
+        const email = urlParams.get('email') || '';
+        const phone = urlParams.get('phone') || '';
+        const linkedin = urlParams.get('linkedin') || '';
+        const github = urlParams.get('github') || '';
+        const instagram = urlParams.get('instagram') || '';
+        const twitter = urlParams.get('twitter') || '';
+        const website = urlParams.get('website') || '';
 
-    document.getElementById('name').textContent = name;
-    document.getElementById('title').textContent = title;
-    document.getElementById('email').textContent = 'Email: ' + email;
-    document.getElementById('phone').textContent = 'Phone: ' + phone;
-    document.getElementById('website').textContent = website;
+        document.getElementById('name').textContent = name;
+        document.getElementById('title').textContent = title;
+        document.getElementById('email').textContent = 'Email: ' + email;
+        document.getElementById('phone').textContent = 'Phone: ' + phone;
+        document.getElementById('website').textContent = website;
 
-    const socialIconsDiv = document.getElementById('social-icons');
-    if (linkedin || github || instagram || twitter) {
-        if (linkedin) {
-            const linkedinIcon = createIcon('fab fa-linkedin', linkedin);
-            socialIconsDiv.appendChild(linkedinIcon);
+        const socialIconsDiv = document.getElementById('social-icons');
+        if (linkedin || github || instagram || twitter) {
+            if (linkedin) {
+                const linkedinIcon = createIcon('fab fa-linkedin', linkedin);
+                socialIconsDiv.appendChild(linkedinIcon);
+            }
+            if (github) {
+                const githubIcon = createIcon('fab fa-github', github);
+                socialIconsDiv.appendChild(githubIcon);
+            }
+            if (instagram) {
+                const instagramIcon = createIcon('fab fa-instagram', instagram);
+                socialIconsDiv.appendChild(instagramIcon);
+            }
+            if (twitter) {
+                const twitterIcon = createIcon('fab fa-twitter', twitter);
+                socialIconsDiv.appendChild(twitterIcon);
+            }
         }
-        if (github) {
-            const githubIcon = createIcon('fab fa-github', github);
-            socialIconsDiv.appendChild(githubIcon);
-        }
-        if (instagram) {
-            const instagramIcon = createIcon('fab fa-instagram', instagram);
-            socialIconsDiv.appendChild(instagramIcon);
-        }
-        if (twitter) {
-            const twitterIcon = createIcon('fab fa-twitter', twitter);
-            socialIconsDiv.appendChild(twitterIcon);
-        }
-    }
 
-    function createIcon(className, url) {
-        const iconBox = document.createElement('span');
-        iconBox.className = 'icon-box';
-        const iconLink = document.createElement('a');
-        iconLink.href = url;
-        iconLink.target = '_blank';
-        iconLink.className = className;
-        iconBox.appendChild(iconLink);
-        return iconBox;
-    }
+        function createIcon(className, url) {
+            const iconBox = document.createElement('span');
+            iconBox.className = 'icon-box';
+            const iconLink = document.createElement('a');
+            iconLink.href = url;
+            iconLink.target = '_blank';
+            iconLink.className = className;
+            iconBox.appendChild(iconLink);
+            return iconBox;
+        }
 
-    function downloadContact() {
-        let vCardContent = `BEGIN:VCARD
-VERSION:3.0
-FN:${name}
-TITLE:${title}
-EMAIL:${email}
-TEL:${phone}
-URL:${website}\n`;
-        if (linkedin) {
-            vCardContent += `X-SOCIALPROFILE;TYPE=linkedin:${linkedin}\n`;
-        }
-        if (github) {
-            vCardContent += `X-SOCIALPROFILE;TYPE=github:${github}\n`;
-        }
-        if (instagram) {
-            vCardContent += `X-SOCIALPROFILE;TYPE=instagram:${instagram}\n`;
-        }
-        if (twitter) {
-            vCardContent += `X-SOCIALPROFILE;TYPE=twitter:${twitter}\n`;
-        }
-        vCardContent += `END:VCARD`;
+        function downloadContact() {
+            let vCardContent = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTITLE:${title}\nEMAIL:${email}\nTEL:${phone}\nURL:${website}\n`;
+            if (linkedin) {
+                vCardContent += `X-SOCIALPROFILE;TYPE=linkedin:${linkedin}\n`;
+            }
+            if (github) {
+                vCardContent += `X-SOCIALPROFILE;TYPE=github:${github}\n`;
+            }
+            if (instagram) {
+                vCardContent += `X-SOCIALPROFILE;TYPE=instagram:${instagram}\n`;
+            }
+            if (twitter) {
+                vCardContent += `X-SOCIALPROFILE;TYPE=twitter:${twitter}\n`;
+            }
+            vCardContent += `END:VCARD`;
 
-        const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = 'contact.vcf';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-    }
-</script>
-
+            const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'contact.vcf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
 </body>
 </html>
-           

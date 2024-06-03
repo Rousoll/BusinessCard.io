@@ -12,13 +12,13 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
         }
         .card {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 320px;
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
@@ -66,7 +66,7 @@
 </head>
 <body>
     <div class="card">
-        <img src="profile.jpg" alt="Profile Picture" class="profile-pic" id="profile-pic">
+        <img src="" alt="Profile Picture" class="profile-pic" id="profile-pic">
         <h1 class="name" id="name"></h1>
         <p class="title" id="title"></p>
         <p class="contact" id="email"></p>
@@ -86,7 +86,9 @@
                 email: params.get('email'),
                 phone: params.get('phone'),
                 linkedin: params.get('linkedin'),
-                github: params.get('github')
+                github: params.get('github'),
+                nfc: params.get('nfc'),
+                profilePic: params.get('profilePic')
             };
         }
 
@@ -98,6 +100,9 @@
             document.getElementById('phone').textContent = `Phone: ${params.phone}`;
             document.getElementById('linkedin').href = params.linkedin;
             document.getElementById('github').href = params.github;
+            if (params.profilePic) {
+                document.getElementById('profile-pic').src = params.profilePic;
+            }
         }
 
         function saveContact() {
@@ -111,7 +116,7 @@ TEL:${params.phone}
 URL:${params.linkedin}
 URL:${params.github}
 END:VCARD`;
-            
+
             const blob = new Blob([vcfData], { type: 'text/vcard' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');

@@ -127,22 +127,22 @@
         </form>
     </div>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const title = document.getElementById('title').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const website = document.getElementById('website').value;
-            const linkedin = document.getElementById('linkedin').value;
-            const github = document.getElementById('github').value;
-            const instagram = document.getElementById('instagram').value;
-            const twitter = document.getElementById('twitter').value;
-            const logoChecked = document.getElementById('logo').checked;
+       document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const title = document.getElementById('title').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const website = document.getElementById('website').value;
+    const linkedin = document.getElementById('linkedin').value;
+    const github = document.getElementById('github').value;
+    const instagram = document.getElementById('instagram').value;
+    const twitter = document.getElementById('twitter').value;
 
-            const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&website=${encodeURIComponent(website)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&instagram=${encodeURIComponent(instagram)}&twitter=${encodeURIComponent(twitter)}&logo=${logoChecked}`;
-            window.location.href = `card.html?${queryString}`;
-        });
+    const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&website=${encodeURIComponent(website)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&instagram=${encodeURIComponent(instagram)}&twitter=${encodeURIComponent(twitter)}`;
+    window.location.href = `card.html?${queryString}`;
+});
+
 
         document.getElementById('expandCollapse').addEventListener('click', function() {
             const socialMediaField = document.querySelector('.social-media-field');

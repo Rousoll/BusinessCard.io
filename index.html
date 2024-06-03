@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* change to min-height to ensure it stretches on smaller screens */
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
         }
 
@@ -23,14 +22,15 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 320px;
+            width: 90%; /* Adjusted to fit better on smaller screens */
+            max-width: 400px; /* Added to limit maximum width for larger screens */
             box-sizing: border-box;
             text-align: center;
         }
 
         .form-container h2 {
             margin-bottom: 20px;
-            color: #007BFF;
+            color: #062c6e; /* Changed title color */
         }
 
         .form-container label {

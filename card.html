@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Card</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f8f9fa;
         }
 
         .card-container {
+            position: relative;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -26,76 +29,121 @@
         }
 
         .card-container img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+            width: 150px;
+            height: auto;
             margin-bottom: 20px;
         }
 
-        .card-container h2 {
+        .card-container h1 {
             margin-bottom: 10px;
-            color: #007BFF;
+            color: #062c6e;
         }
 
         .card-container p {
             margin-bottom: 5px;
+            color: #062c6e;
         }
 
-        .card-container a {
-            color: #007BFF;
+        .icon-group {
+            margin-top: 25px;
+        }
+
+        .icon-box {
+            position: relative;
+            font-size: 24px;
+            height: 45px;
+            width: 45px;
+            line-height: 45px;
+            display: inline-block;
+            border: 2px solid #062c6e;
+            border-radius: 5px; /* Rounded corners */
+            margin: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all ease 0.5s;
+        }
+
+        .icon-box a {
+            color: #062c6e;
             text-decoration: none;
         }
 
-        .card-container a:hover {
-            text-decoration: underline;
+        .icon-box:hover {
+            background-color: #062c6e;
+            color: #fff;
+        }
+
+        .website a {
+            color: #062c6e;
+            text-decoration: none;
+        }
+
+        .website a:hover {
+            color: #3f3f3f;
+        }
+
+        .vcard-link {
+            display: block;
+            margin-top: 20px;
+            color: #062c6e;
+            text-decoration: none;
+        }
+
+        .vcard-link:hover {
+            color: #3f3f3f;
         }
     </style>
 </head>
 <body>
     <div class="card-container">
-        <img src="" alt="Profile Picture">
-        <h2 id="name"></h2>
+        <img src="https://www.ramworld.net/wp-content/uploads/2024/01/ramworld-300x300-1.png" alt="Ramworld Logo">
+        <h1 id="name"></h1>
         <p id="title"></p>
         <p id="email"></p>
         <p id="phone"></p>
-        <p id="linkedin"></p>
-        <p id="github"></p>
-        <p id="instagram"></p>
-        <p id="twitter"></p>
-        <p id="website"></p>
+        <div class="icon-group">
+            <span class="icon-box" id="linkedin"><a href="#" class="fab fa-linkedin"></a></span>
+            <span class="icon-box" id="github"><a href="#" class="fab fa-github"></a></span>
+            <span class="icon-box" id="instagram"><a href="#" class="fab fa-instagram"></a></span>
+            <span class="icon-box" id="twitter"><a href="#" class="fas fa-times"></a></span>
+        </div>
+        <p class="website"><a href="#" class="link" id="website">www.example.com</a></p>
+        <a href="#" class="vcard-link" id="downloadLink" download="contact.vcf">Download vCard</a>
     </div>
 
     <script>
-        function getQueryParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                name: params.get('name'),
-                title: params.get('title'),
-                email: params.get('email'),
-                phone: params.get('phone'),
-                linkedin: params.get('linkedin'),
-                github: params.get('github'),
-                instagram: params.get('instagram'),
-                twitter: params.get('twitter'),
-                website: params.get('website')
-            };
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name') || '';
+            const title = urlParams.get('title') || '';
+            const email = urlParams.get('email') || '';
+            const phone = urlParams.get('phone') || '';
+            const linkedin = urlParams.get('linkedin') || '';
+            const github = urlParams.get('github') || '';
+            const instagram = urlParams.get('instagram') || '';
+            const twitter = urlParams.get('twitter') || '';
+            const website = urlParams.get('website') || '';
 
-        function populateCard() {
-            const params = getQueryParams();
-            document.getElementById('name').textContent = params.name;
-            document.getElementById('title').textContent = params.title;
-            document.getElementById('email').textContent = `Email: ${params.email}`;
-            document.getElementById('phone').textContent = `Phone: ${params.phone}`;
-            document.getElementById('linkedin').innerHTML = `<a href="${params.linkedin}" target="_blank">LinkedIn</a>`;
-            document.getElementById('instagram').innerHTML = `<a href="${params.instagram}" target="_blank">Instagram</a>`;
-            document.getElementById('twitter').innerHTML = `<a href="${params.twitter}" target="_blank">Twitter / X</a>`;
-            document.getElementById('github').innerHTML = `<a href="${params.github}" target="_blank">GitHub</a>`;
-            document.getElementById('website').innerHTML = `<a href="${params.website}" target="_blank">Website</a>`;
-        }
-
-        window.onload = populateCard;
+            document.getElementById('name').textContent = name;
+            document.getElementById('title').textContent = title;
+            document.getElementById('email').textContent = 'Email: ' + email;
+            document.getElementById('phone').textContent = 'Phone: ' + phone;
+            document.getElementById('linkedin').innerHTML = linkedin ? '<a href="' + linkedin + '" target="_blank" class="fab fa-linkedin"></a>' : '';
+            document.getElementById('github').innerHTML = github ? '<a href="' + github + '" target="_blank" class="fab fa-github"></a>' : '';
+            document.getElementById('instagram').innerHTML = instagram ? '<a href="' + instagram + '" target="_blank" class="fab fa-instagram"></a>' : '';
+            document.getElementById('twitter').innerHTML = twitter ? '<a href="' + twitter + '" target="_blank" class="fas fa-times"></a>' : '';
+            document.getElementById('website').href = website;
+            document.getElementById('downloadLink').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(
+                `BEGIN:VCARD
+VERSION:3.0
+FN:${name}
+TITLE:${title}
+EMAIL:${email}
+TEL:${phone}
+URL:${website}
+END:VCARD`
+            );
+        });
     </script>
-
 </body>
 </html>

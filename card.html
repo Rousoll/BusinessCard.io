@@ -3,165 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramworld</title>
+    <title>Business Card</title>
     <style>
-        @font-face {
-            font-family: 'Cairo';
-            src: url('fonts/Cairo-Regular.woff2') format('woff2'),
-                 url('fonts/Cairo-Regular.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
         body {
-            background: #062c6e;
             font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            padding: 0;
+            background-color: #f8f9fa;
         }
 
-        .frame {   
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 400px;
-            height: 400px;
-            margin-top: -200px;
-            margin-left: -200px;
-            border-radius: 2px;
-            box-shadow: .5rem 1rem 1rem rgba(0,0,0,0.6);
-            overflow: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale; 
-        }
-
-        .card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80%;
-            height: 40%;
-            padding: 1rem;
-            background: linear-gradient(178deg, #ef2f96, #ad2fed, #ad2fed, #d53070);
-            background-size: 600% 600%;
-            animation: background 7s ease infinite;
-            perspective: 800px;
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            transition: all .7s ease-in-out;
-        }
-
-        .front, .back {
-            backface-visibility: hidden;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            background: #062c6e;
-        }
-
-        .front {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Satisfy', cursive;
-            font-size: 8rem;
-            margin: 1rem 5rem;
-            text-shadow: .2rem .2rem .5rem fade-out(black, .8);
-        }
-
-        .back {
+        .card-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 320px;
             text-align: center;
-            letter-spacing: 2px;
-            h2 {
-                font-size: 2.3rem;
-                margin: .5rem;
-            }
-            h3 {
-                color: fade-out(#fff, .3);
-                font-family: satisfy, cursive;
-                font-weight: 300;
-                font-size: 1.9rem;
-                margin: 1.8rem;
-            }
         }
 
-        .fa-heart {
-            font-size: 2rem;
+        .card-container img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
         }
 
-        .line {
-            width: 2rem;
-            height: 2px;
-            background: fade-out(#fff, .6);
-            position: absolute;
+        .card-container h2 {
+            margin-bottom: 10px;
+            color: #007BFF;
         }
 
-        .line-1, .line-2 {
-            width: 3rem;
-            height: 2px;
-            background: white;
-            position: absolute;
-            left: 82.5%;
-            transform: rotate(-90deg);
+        .card-container p {
+            margin-bottom: 5px;
         }
 
-        .line-1 {
-            top: 85%;
+        .card-container a {
+            color: #007BFF;
+            text-decoration: none;
         }
 
-        .line-2 {
-            top: 13%;
-        }
-
-        .line-3 {
-            width: 2rem;
-            height: 2px;
-            background: fade-out(#fff, .6);
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .social {
-            font-size: 1.3rem;
-            color: fade-out(#fff, .6);
-            i {
-                padding: 0 .5rem;
-            }
-            i:hover {
-                color: fade-out(#fff, .3);
-                cursor: pointer;
-            }
-        }
-
-        @keyframes background {
-            0%, 100%{background-position:0% 13%}
-            50%{background-position:100% 88%}
+        .card-container a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="frame">
-        <div class="card flip">
-            <div class="front">
-                Ramworld
-            </div>
-            <div class="back">
-                <div class="social">
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-linkedin"></i>
-                    <a href="data:text/vcard;charset=utf-8,BEGIN:VCARD%0AVERSION:3.0%0AFN:Ramworld%0AEND:VCARD" download="Ramworld.vcf">
-                        <i class="far fa-address-card"></i> Save to Contacts
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="card-container">
+        <img src="" alt="Profile Picture">
+        <h2 id="name"></h2>
+        <p id="title"></p>
+        <p id="email"></p>
+        <p id="phone"></p>
+        <p id="linkedin"></p>
+        <p id="github"></p>
+        <p id="instagram"></p>
+        <p id="twitter"></p>
+        <p id="website"></p>
     </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                name: params.get('name'),
+                title: params.get('title'),
+                email: params.get('email'),
+                phone: params.get('phone'),
+                linkedin: params.get('linkedin'),
+                github: params.get('github'),
+                instagram: params.get('instagram'),
+                twitter: params.get('twitter'),
+                website: params.get('website')
+            };
+        }
+
+        function populateCard() {
+            const params = getQueryParams();
+            document.getElementById('name').textContent = params.name;
+            document.getElementById('title').textContent = params.title;
+            document.getElementById('email').textContent = `Email: ${params.email}`;
+            document.getElementById('phone').textContent = `Phone: ${params.phone}`;
+            document.getElementById('linkedin').innerHTML = `<a href="${params.linkedin}" target="_blank">LinkedIn</a>`;
+            document.getElementById('instagram').innerHTML = `<a href="${params.instagram}" target="_blank">Instagram</a>`;
+            document.getElementById('twitter').innerHTML = `<a href="${params.twitter}" target="_blank">Twitter / X</a>`;
+            document.getElementById('github').innerHTML = `<a href="${params.github}" target="_blank">GitHub</a>`;
+            document.getElementById('website').innerHTML = `<a href="${params.website}" target="_blank">Website</a>`;
+        }
+
+        window.onload = populateCard;
+    </script>
+
 </body>
 </html>

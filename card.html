@@ -1,3 +1,4 @@
+<!-- card.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +76,7 @@
 
         .website a {
             color: #062c6e;
-            text-decoration: none;
+             text-decoration: none;
         }
 
         .website a:hover {
@@ -108,54 +109,48 @@
         <p id="email"></p>
         <p id="phone"></p>
         <div class="icon-group" id="social-icons"></div>
-        <p class="website"><a href="#" class="link" id="website">ramworld.net</a></p>
+        <p class="website"><a href="#" class="link" id="website"></a></p>
         <button class="vcard-button" id="downloadLink" onclick="downloadContact()">Save Contact</button>
     </div>
 
     <script>
-        fetch('index.html')
-            .then(response => response.text())
-            .then(html => {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = html;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const name = urlParams.get('name') || '';
+        const title = urlParams.get('title') || '';
+        const email = urlParams.get('email') || '';
+        const phone = urlParams.get('phone') || '';
+        const linkedin = urlParams.get('linkedin') || '';
+        const github = urlParams.get('github') || '';
+        const instagram = urlParams.get('instagram') || '';
+        const twitter = urlParams.get('twitter') || '';
+        const website = urlParams.get('website') || '';
 
-                const name = tempDiv.querySelector('#name').textContent;
-                const title = tempDiv.querySelector('#title').textContent;
-                const email = tempDiv.querySelector('#email').textContent;
-                const phone = tempDiv.querySelector('#phone').textContent;
-                const linkedin = tempDiv.querySelector('#linkedin').textContent;
-                const github = tempDiv.querySelector('#github').textContent;
-                const instagram = tempDiv.querySelector('#instagram').textContent;
-                const twitter = tempDiv.querySelector('#twitter').textContent;
-                const website = tempDiv.querySelector('#website').textContent;
+        document.getElementById('name').textContent = name;
+        document.getElementById('title').textContent = title;
+        document.getElementById('email').textContent = 'Email: ' + email;
+        document.getElementById('phone').textContent = 'Phone: ' + phone;
+        document.getElementById('website').textContent = website;
 
-                document.getElementById('name').textContent = name;
-                document.getElementById('title').textContent = title;
-                document.getElementById('email').textContent = email;
-                document.getElementById('phone').textContent = phone;
-                document.getElementById('website').textContent = website;
-
-                const socialIconsDiv = document.getElementById('social-icons');
-                if (linkedin || github || instagram || twitter) {
-                    if (linkedin) {
-                        const linkedinIcon = createIcon('fab fa-linkedin', linkedin);
-                        socialIconsDiv.appendChild(linkedinIcon);
-                    }
-                    if (github) {
-                        const githubIcon = createIcon('fab fa-github', github);
-                        socialIconsDiv.appendChild(githubIcon);
-                    }
-                    if (instagram) {
-                        const instagramIcon = createIcon('fab fa-instagram', instagram);
-                        socialIconsDiv.appendChild(instagramIcon);
-                    }
-                    if (twitter) {
-                        const twitterIcon = createIcon('fab fa-twitter', twitter);
-                        socialIconsDiv.appendChild(twitterIcon);
-                    }
-                }
-            })
-            .catch(error => console.error('Error fetching data:', error));
+        const socialIconsDiv = document.getElementById('social-icons');
+        if (linkedin || github || instagram || twitter) {
+            if (linkedin) {
+                const linkedinIcon = createIcon('fab fa-linkedin', linkedin);
+                socialIconsDiv.appendChild(linkedinIcon);
+            }
+            if (github) {
+                const githubIcon = createIcon('fab fa-github', github);
+                socialIconsDiv.appendChild(githubIcon);
+            }
+            if (instagram) {
+                const instagramIcon = createIcon('fab fa-instagram', instagram);
+                socialIconsDiv.appendChild(instagramIcon);
+            }
+            if (twitter) {
+                const twitterIcon = createIcon('fab fa-twitter', twitter);
+                socialIconsDiv.appendChild(twitterIcon);
+            }
+        }
 
         function createIcon(className, url) {
             const iconBox = document.createElement('span');
@@ -168,13 +163,7 @@
             return iconBox;
         }
 
-      function downloadContact() {
-            const name = document.getElementById('name').textContent;
-            const title = document.getElementById('title').textContent;
-            const email = document.getElementById('email').textContent.replace('Email: ', '');
-            const phone = document.getElementById('phone').textContent.replace('Phone: ', '');
-            const website = document.getElementById('website').textContent;
-
+        function downloadContact() {
             const vCardContent = `BEGIN:VCARD
 VERSION:3.0
 FN:${name}
@@ -199,3 +188,4 @@ END:VCARD`;
     </script>
 </body>
 </html>
+           

@@ -77,12 +77,17 @@
             <label for="github">GitHub URL</label>
             <input type="url" id="github" placeholder="GitHub URL">
             
-            <label for="profile-pic">Profile Picture</label>
-            <input type="file" id="profile-pic" accept="image/*">
+            <label for="instagram">Instagram URL</label>
+            <input type="url" id="instagram" placeholder="Instagram URL">
+            
+            <label for="twitter">Twitter / X  URL</label>
+            <input type="url" id="twitter" placeholder="Twitter URL">
+            
+            <label for="website">Website URL</label>
+            <input type="url" id="website" placeholder="Website URL">
             
             <button type="submit">Generate Business Card</button>
         </form>
-        <button id="writeNFC">Write to NFC</button>
     </div>
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
@@ -93,22 +98,13 @@
             const phone = document.getElementById('phone').value;
             const linkedin = document.getElementById('linkedin').value;
             const github = document.getElementById('github').value;
-            const profilePic = document.getElementById('profile-pic').files[0];
+            const instagram = document.getElementById('instagram').value;
+            const twitter = document.getElementById('twitter').value;
+            const website = document.getElementById('website').value;
 
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const profilePicDataUrl = event.target.result;
-                const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&profilePic=${encodeURIComponent(profilePicDataUrl)}`;
-                window.location.href = `card.html?${queryString}`;
-            };
-            if (profilePic) {
-                reader.readAsDataURL(profilePic);
-            } else {
-                const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}`;
-                window.location.href = `card.html?${queryString}`;
-            }
+            const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&instagram=${encodeURIComponent(instagram)}&twitter=${encodeURIComponent(twitter)}&website=${encodeURIComponent(website)}`;
+            window.location.href = `card.html?${queryString}`;
         });
     </script>
-    
 </body>
 </html>

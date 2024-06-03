@@ -111,30 +111,51 @@
         <a href="#" class="vcard-link" id="downloadLink" download="contact.vcf">Save Contact</a>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name') || '';
-            const title = urlParams.get('title') || '';
-            const email = urlParams.get('email') || '';
-            const phone = urlParams.get('phone') || '';
-            const linkedin = urlParams.get('linkedin') || '';
-            const github = urlParams.get('github') || '';
-            const instagram = urlParams.get('instagram') || '';
-            const twitter = urlParams.get('twitter') || '';
-            const website = urlParams.get('website') || '';
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name') || '';
+        const title = urlParams.get('title') || '';
+        const email = urlParams.get('email') || '';
+        const phone = urlParams.get('phone') || '';
+        const linkedin = urlParams.get('linkedin') || '';
+        const github = urlParams.get('github') || '';
+        const instagram = urlParams.get('instagram') || '';
+        const twitter = urlParams.get('twitter') || '';
+        const website = urlParams.get('website') || '';
 
-            document.getElementById('name').textContent = name;
-            document.getElementById('title').textContent = title;
-            document.getElementById('email').textContent = 'Email: ' + email;
-            document.getElementById('phone').textContent = 'Phone: ' + phone;
-            document.getElementById('linkedin').innerHTML = linkedin ? '<a href="' + linkedin + '" target="_blank" class="fab fa-linkedin"></a>' : '';
-            document.getElementById('github').innerHTML = github ? '<a href="' + github + '" target="_blank" class="fab fa-github"></a>' : '';
-            document.getElementById('instagram').innerHTML = instagram ? '<a href="' + instagram + '" target="_blank" class="fab fa-instagram"></a>' : '';
-            document.getElementById('twitter').innerHTML = twitter ? '<a href="' + twitter + '" target="_blank" class="fas fa-times"></a>' : '';
-            document.getElementById('website').href = website;
-            document.getElementById('downloadLink').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(
-                `BEGIN:VCARD
+        document.getElementById('name').textContent = name;
+        document.getElementById('title').textContent = title;
+        document.getElementById('email').textContent = 'Email: ' + email;
+        document.getElementById('phone').textContent = 'Phone: ' + phone;
+
+        if (linkedin) {
+            document.getElementById('linkedin').innerHTML = '<a href="' + linkedin + '" target="_blank" class="fab fa-linkedin"></a>';
+        } else {
+            document.getElementById('linkedin').style.display = 'none';
+        }
+
+        if (github) {
+            document.getElementById('github').innerHTML = '<a href="' + github + '" target="_blank" class="fab fa-github"></a>';
+        } else {
+            document.getElementById('github').style.display = 'none';
+        }
+
+        if (instagram) {
+            document.getElementById('instagram').innerHTML = '<a href="' + instagram + '" target="_blank" class="fab fa-instagram"></a>';
+        } else {
+            document.getElementById('instagram').style.display = 'none';
+        }
+
+        if (twitter) {
+            document.getElementById('twitter').innerHTML = '<a href="' + twitter + '" target="_blank" class="fas fa-times"></a>';
+        } else {
+            document.getElementById('twitter').style.display = 'none';
+        }
+
+        document.getElementById('website').href = website;
+        document.getElementById('downloadLink').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(
+            `BEGIN:VCARD
 VERSION:3.0
 FN:${name}
 TITLE:${title}
@@ -142,8 +163,9 @@ EMAIL:${email}
 TEL:${phone}
 URL:${website}
 END:VCARD`
-            );
-        });
-    </script>
+        );
+    });
+</script>
+
 </body>
 </html>

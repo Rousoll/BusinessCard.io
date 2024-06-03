@@ -17,7 +17,8 @@
         }
 
         .card-container {
-            background-color: #ffffff;
+            background-color: #062c6e;
+            color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
@@ -25,44 +26,48 @@
             text-align: center;
         }
 
-        .card-container img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
         .card-container h2 {
             margin-bottom: 10px;
-            color: #007BFF;
+            color: #ffffff;
         }
 
         .card-container p {
             margin-bottom: 5px;
+            font-size: 16px;
         }
 
         .card-container a {
-            color: #007BFF;
+            color: #ffffff;
             text-decoration: none;
         }
 
         .card-container a:hover {
             text-decoration: underline;
         }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 5px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="card-container">
-        <img src="" alt="Profile Picture">
         <h2 id="name"></h2>
         <p id="title"></p>
         <p id="email"></p>
         <p id="phone"></p>
-        <p id="linkedin"></p>
-        <p id="github"></p>
-        <p id="instagram"></p>
-        <p id="twitter"></p>
-        <p id="website"></p>
+        <div class="social-links" id="socialLinks"></div>
     </div>
 
     <script>
@@ -83,14 +88,27 @@
 
         function populateCard() {
             const params = getQueryParams();
-            document.getElementById('name').textContent = params.name;
-            document.getElementById('title').textContent = params.title;
-            document.getElementById('email').textContent = `Email: ${params.email}`;
-            document.getElementById('phone').textContent = `Phone: ${params.phone}`;
-            document.getElementById('linkedin').innerHTML = `<a href="${params.linkedin}" target="_blank">LinkedIn</a>`;
-            document.getElementById('instagram').innerHTML = `<a href="${params.instagram}" target="_blank">Instagram</a>`;
-            document.getElementById('twitter').innerHTML = `<a href="${params.twitter}" target="_blank">Twitter / X</a>`;
-            document.getElementById('website').innerHTML = `<a href="${params.website}" target="_blank">Website</a>`;
+            document.getElementById('name').textContent = params.name || '';
+            document.getElementById('title').textContent = params.title || '';
+            document.getElementById('email').textContent = params.email ? `Email: ${params.email}` : '';
+            document.getElementById('phone').textContent = params.phone ? `Phone: ${params.phone}` : '';
+
+            const socialLinks = document.getElementById('socialLinks');
+            if (params.linkedin) {
+                socialLinks.innerHTML += `<a href="${params.linkedin}" target="_blank">LinkedIn</a>`;
+            }
+            if (params.github) {
+                socialLinks.innerHTML += `<a href="${params.github}" target="_blank">GitHub</a>`;
+            }
+            if (params.instagram) {
+                socialLinks.innerHTML += `<a href="${params.instagram}" target="_blank">Instagram</a>`;
+            }
+            if (params.twitter) {
+                socialLinks.innerHTML += `<a href="${params.twitter}" target="_blank">Twitter / X</a>`;
+            }
+            if (params.website) {
+                socialLinks.innerHTML += `<a href="${params.website}" target="_blank">Website</a>`;
+            }
         }
 
         window.onload = populateCard;

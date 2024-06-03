@@ -78,7 +78,7 @@
         <button class="btn" id="save-contact">Save to Phone</button>
     </div>
     <script>
-        function getQueryParams() {
+         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             return {
                 name: params.get('name'),
@@ -87,7 +87,6 @@
                 phone: params.get('phone'),
                 linkedin: params.get('linkedin'),
                 github: params.get('github'),
-                nfc: params.get('nfc'),
                 profilePic: params.get('profilePic')
             };
         }

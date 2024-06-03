@@ -77,9 +77,6 @@
             <label for="github">GitHub URL</label>
             <input type="url" id="github" placeholder="GitHub URL">
             
-            <label for="nfc">NFC URL</label>
-            <input type="url" id="nfc" placeholder="NFC URL">
-            
             <label for="profile-pic">Profile Picture</label>
             <input type="file" id="profile-pic" accept="image/*">
             
@@ -96,19 +93,18 @@
             const phone = document.getElementById('phone').value;
             const linkedin = document.getElementById('linkedin').value;
             const github = document.getElementById('github').value;
-            const nfc = document.getElementById('nfc').value;
             const profilePic = document.getElementById('profile-pic').files[0];
 
             const reader = new FileReader();
             reader.onloadend = function() {
                 const profilePicDataUrl = reader.result;
-                const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&nfc=${encodeURIComponent(nfc)}&profilePic=${encodeURIComponent(profilePicDataUrl)}`;
+                const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&profilePic=${encodeURIComponent(profilePicDataUrl)}`;
                 window.location.href = `card.html?${queryString}`;
             };
             if (profilePic) {
                 reader.readAsDataURL(profilePic);
             } else {
-                const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&nfc=${encodeURIComponent(nfc)}`;
+                const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}`;
                 window.location.href = `card.html?${queryString}`;
             }
         });
@@ -132,9 +128,8 @@
                     const phone = document.getElementById('phone').value;
                     const linkedin = document.getElementById('linkedin').value;
                     const github = document.getElementById('github').value;
-                    const nfc = document.getElementById('nfc').value;
 
-                    const nfcData = `Name: ${name}\nTitle: ${title}\nEmail: ${email}\nPhone: ${phone}\nLinkedIn: ${linkedin}\nGitHub: ${github}\nNFC URL: ${nfc}`;
+                    const nfcData = `Name: ${name}\nTitle: ${title}\nEmail: ${email}\nPhone: ${phone}\nLinkedIn: ${linkedin}\nGitHub: ${github}`;
 
                     await ndef.write({
                         records: [{ recordType: "text", data: nfcData }]

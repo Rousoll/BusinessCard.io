@@ -113,79 +113,81 @@
         <button class="vcard-button" id="downloadLink" onclick="downloadContact()">Save Contact</button>
     </div>
 
-    <script>
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const name = urlParams.get('name') || '';
-        const title = urlParams.get('title') || '';
-        const email = urlParams.get('email') || '';
-        const phone = urlParams.get('phone') || '';
-        const linkedin = urlParams.get('linkedin') || '';
-        const github = urlParams.get('github') || '';
-        const instagram = urlParams.get('instagram') || '';
-        const twitter = urlParams.get('twitter') || '';
-        const website = urlParams.get('website') || '';
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const name = urlParams.get('name') || '';
+    const title = urlParams.get('title') || '';
+    const email = urlParams.get('email') || '';
+    const phone = urlParams.get('phone') || '';
+    const linkedin = urlParams.get('linkedin') || '';
+    const github = urlParams.get('github') || '';
+    const instagram = urlParams.get('instagram') || '';
+    const twitter = urlParams.get('twitter') || '';
+    const website = urlParams.get('website') || '';
 
-        document.getElementById('name').textContent = name;
-        document.getElementById('title').textContent = title;
-        document.getElementById('email').textContent = 'Email: ' + email;
-        document.getElementById('phone').textContent = 'Phone: ' + phone;
-        document.getElementById('website').textContent = website;
+    document.getElementById('name').textContent = name;
+    document.getElementById('title').textContent = title;
+    document.getElementById('email').textContent = 'Email: ' + email;
+    document.getElementById('phone').textContent = 'Phone: ' + phone;
+    document.getElementById('website').textContent = website;
 
-        const socialIconsDiv = document.getElementById('social-icons');
-        if (linkedin || github || instagram || twitter) {
-            if (linkedin) {
-                const linkedinIcon = createIcon('fab fa-linkedin', linkedin);
-                socialIconsDiv.appendChild(linkedinIcon);
-            }
-            if (github) {
-                const githubIcon = createIcon('fab fa-github', github);
-                socialIconsDiv.appendChild(githubIcon);
-            }
-            if (instagram) {
-                const instagramIcon = createIcon('fab fa-instagram', instagram);
-                socialIconsDiv.appendChild(instagramIcon);
-            }
-            if (twitter) {
-                const twitterIcon = createIcon('fab fa-twitter', twitter);
-                socialIconsDiv.appendChild(twitterIcon);
-            }
+    const socialIconsDiv = document.getElementById('social-icons');
+    if (linkedin || github || instagram || twitter) {
+        if (linkedin) {
+            const linkedinIcon = createIcon('fab fa-linkedin', linkedin);
+            socialIconsDiv.appendChild(linkedinIcon);
         }
-
-        function createIcon(className, url) {
-            const iconBox = document.createElement('span');
-            iconBox.className = 'icon-box';
-            const iconLink = document.createElement('a');
-            iconLink.href = url;
-            iconLink.target = '_blank';
-            iconLink.className = className;
-            iconBox.appendChild(iconLink);
-            return iconBox;
+        if (github) {
+            const githubIcon = createIcon('fab fa-github', github);
+            socialIconsDiv.appendChild(githubIcon);
         }
+        if (instagram) {
+            const instagramIcon = createIcon('fab fa-instagram', instagram);
+            socialIconsDiv.appendChild(instagramIcon);
+        }
+        if (twitter) {
+            const twitterIcon = createIcon('fab fa-twitter', twitter);
+            socialIconsDiv.appendChild(twitterIcon);
+        }
+    }
 
-        function downloadContact() {
-            const vCardContent = `BEGIN:VCARD
+    function createIcon(className, url) {
+        const iconBox = document.createElement('span');
+        iconBox.className = 'icon-box';
+        const iconLink = document.createElement('a');
+        iconLink.href = url;
+        iconLink.target = '_blank';
+        iconLink.className = className;
+        iconBox.appendChild(iconLink);
+        return iconBox;
+    }
+
+    function downloadContact() {
+        const vCardContent = `BEGIN:VCARD
 VERSION:3.0
 FN:${name}
 TITLE:${title}
 EMAIL:${email}
 TEL:${phone}
 URL:${website}
-LinkedIn:${linkedin}
-GitHub:${github}
-Twitter:${twitter}
+${linkedin ? 'X-SOCIALPROFILE;TYPE=linkedin:' + linkedin : ''}
+${github ? 'X-SOCIALPROFILE;TYPE=github:' + github : ''}
+${instagram ? 'X-SOCIALPROFILE;TYPE=instagram:' + instagram : ''}
+${twitter ? 'X-SOCIALPROFILE;TYPE=twitter:' + twitter : ''}
 END:VCARD`;
-            const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'contact.vcf';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
-    </script>
+        const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'contact.vcf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+</script>
+
 </body>
 </html>
            

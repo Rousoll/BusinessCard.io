@@ -170,11 +170,11 @@ FN:${name}
 TITLE:${title}
 EMAIL:${email}
 TEL:${phone}
+URL:${website}
 LinkedIn:${linkedin}
 GitHub:${github}
-Twitter / X:${twitter}
+Twitter:${twitter}
 END:VCARD`;
-
             const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');

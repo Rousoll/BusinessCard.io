@@ -6,79 +6,67 @@
     <title>Business Card</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            background-color: #f8f9fa;
         }
-        .card {
-            background-color: #fff;
+
+        .card-container {
+            background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             width: 320px;
             text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
         }
-        .profile-pic {
+
+        .card-container img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-        .name {
-            font-size: 22px;
-            margin: 0;
+
+        .card-container h2 {
+            margin-bottom: 10px;
+            color: #007BFF;
         }
-        .title {
-            color: gray;
-            font-size: 18px;
-            margin: 10px 0;
+
+        .card-container p {
+            margin-bottom: 5px;
         }
-        .contact {
-            margin: 10px 0;
-        }
-        .social-links a {
-            display: block;
+
+        .card-container a {
             color: #007BFF;
             text-decoration: none;
-            margin: 5px 0;
         }
-        .social-links a:hover {
+
+        .card-container a:hover {
             text-decoration: underline;
-        }
-        .btn {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
-        .btn:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <img src="" alt="Profile Picture" class="profile-pic" id="profile-pic">
-        <h1 class="name" id="name"></h1>
-        <p class="title" id="title"></p>
-        <p class="contact" id="email"></p>
-        <p class="contact" id="phone"></p>
-        <div class="social-links">
-            <a href="#" id="linkedin" target="_blank">LinkedIn</a>
-            <a href="#" id="github" target="_blank">GitHub</a>
-        </div>
-        <button class="btn" id="save-contact">Save to Phone</button>
+    <div class="card-container">
+        <img src="" alt="Profile Picture">
+        <h2 id="name"></h2>
+        <p id="title"></p>
+        <p id="email"></p>
+        <p id="phone"></p>
+        <p id="linkedin"></p>
+        <p id="github"></p>
+        <p id="instagram"></p>
+        <p id="twitter"></p>
+        <p id="website"></p>
     </div>
+
     <script>
-         function getQueryParams() {
+        function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             return {
                 name: params.get('name'),
@@ -87,7 +75,9 @@
                 phone: params.get('phone'),
                 linkedin: params.get('linkedin'),
                 github: params.get('github'),
-                profilePic: params.get('profilePic')
+                instagram: params.get('instagram'),
+                twitter: params.get('twitter'),
+                website: params.get('website')
             };
         }
 
@@ -97,39 +87,15 @@
             document.getElementById('title').textContent = params.title;
             document.getElementById('email').textContent = `Email: ${params.email}`;
             document.getElementById('phone').textContent = `Phone: ${params.phone}`;
-            document.getElementById('linkedin').href = params.linkedin;
-            document.getElementById('github').href = params.github;
-            if (params.profilePic) {
-                document.getElementById('profile-pic').src = params.profilePic;
-            }
+            document.getElementById('linkedin').innerHTML = `<a href="${params.linkedin}" target="_blank">LinkedIn</a>`;
+            document.getElementById('github').innerHTML = `<a href="${params.github}" target="_blank">GitHub</a>`;
+            document.getElementById('instagram').innerHTML = params.instagram ? `<a href="${params.instagram}" target="_blank">Instagram</a>` : '';
+            document.getElementById('twitter').innerHTML = params.twitter ? `<a href="${params.twitter}" target="_blank">Twitter</a>` : '';
+            document.getElementById('website').innerHTML = params.website ? `<a href="${params.website}" target="_blank">Website</a>` : '';
         }
-
-        function saveContact() {
-            const params = getQueryParams();
-            const vcfData = `BEGIN:VCARD
-VERSION:3.0
-FN:${params.name}
-TITLE:${params.title}
-EMAIL:${params.email}
-TEL:${params.phone}
-URL:${params.linkedin}
-URL:${params.github}
-END:VCARD`;
-
-            const blob = new Blob([vcfData], { type: 'text/vcard' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${params.name}.vcf`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        document.getElementById('save-contact').addEventListener('click', saveContact);
 
         window.onload = populateCard;
     </script>
+
 </body>
 </html>

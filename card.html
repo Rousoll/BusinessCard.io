@@ -70,7 +70,7 @@
 
         .icon-box:hover {
             background-color: #062c6e;
-            color: #fff;
+            color: #062c6e;
         }
 
         .website a {
@@ -79,18 +79,24 @@
         }
 
         .website a:hover {
-            color: #3f3f3f;
-        }
-
-        .vcard-link {
-            display: block;
-            margin-top: 20px;
             color: #062c6e;
-            text-decoration: none;
         }
 
-        .vcard-link:hover {
-            color: #3f3f3f;
+        .vcard-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #062c6e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .vcard-button:hover {
+            background-color: #3f3f3f;
         }
     </style>
 </head>
@@ -101,49 +107,95 @@
         <p id="title"></p>
         <p id="email"></p>
         <p id="phone"></p>
-        <div class="icon-group">
-            <span class="icon-box" id="linkedin"><a href="#" class="fab fa-linkedin"></a></span>
-            <span class="icon-box" id="github"><a href="#" class="fab fa-github"></a></span>
-            <span class="icon-box" id="instagram"><a href="#" class="fab fa-instagram"></a></span>
-            <span class="icon-box" id="twitter"><a href="#" class="fas fa-times"></a></span>
-        </div>
-        <p class="website"><a href="#" class="link" id="website">www.example.com</a></p>
-        <a href="#" class="vcard-link" id="downloadLink" download="contact.vcf">Save Contact</a>
+        <div class="icon-group" id="social-icons"></div>
+        <p class="website"><a href="#" class="link" id="website">ramworld.net</a></p>
+        <button class="vcard-button" id="downloadLink" onclick="downloadContact()">Save Contact</button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name') || '';
-            const title = urlParams.get('title') || '';
-            const email = urlParams.get('email') || '';
-            const phone = urlParams.get('phone') || '';
-            const linkedin = urlParams.get('linkedin') || '';
-            const github = urlParams.get('github') || '';
-            const instagram = urlParams.get('instagram') || '';
-            const twitter = urlParams.get('twitter') || '';
-            const website = urlParams.get('website') || '';
+        fetch('index.html')
+            .then(response => response.text())
+            .then(html => {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
 
-            document.getElementById('name').textContent = name;
-            document.getElementById('title').textContent = title;
-            document.getElementById('email').textContent = 'Email: ' + email;
-            document.getElementById('phone').textContent = 'Phone: ' + phone;
-            document.getElementById('linkedin').innerHTML = linkedin ? '<a href="' + linkedin + '" target="_blank" class="fab fa-linkedin"></a>' : '';
-            document.getElementById('github').innerHTML = github ? '<a href="' + github + '" target="_blank" class="fab fa-github"></a>' : '';
-            document.getElementById('instagram').innerHTML = instagram ? '<a href="' + instagram + '" target="_blank" class="fab fa-instagram"></a>' : '';
-            document.getElementById('twitter').innerHTML = twitter ? '<a href="' + twitter + '" target="_blank" class="fas fa-times"></a>' : '';
-            document.getElementById('website').href = website;
-            document.getElementById('downloadLink').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(
-                `BEGIN:VCARD
+                const name = tempDiv.querySelector('#name').textContent;
+                const title = tempDiv.querySelector('#title').textContent;
+                const email = tempDiv.querySelector('#email').textContent;
+                const phone = tempDiv.querySelector('#phone').textContent;
+                const linkedin = tempDiv.querySelector('#linkedin').textContent;
+                const github = tempDiv.querySelector('#github').textContent;
+                const instagram = tempDiv.querySelector('#instagram').textContent;
+                const twitter = tempDiv.querySelector('#twitter').textContent;
+                const website = tempDiv.querySelector('#website').textContent;
+
+                document.getElementById('name').textContent = name;
+                document.getElementById('title').textContent = title;
+                document.getElementById('email').textContent = email;
+                document.getElementById('phone').textContent = phone;
+                document.getElementById('website').textContent = website;
+
+                const socialIconsDiv = document.getElementById('social-icons');
+                if (linkedin || github || instagram || twitter) {
+                    if (linkedin) {
+                        const linkedinIcon = createIcon('fab fa-linkedin', linkedin);
+                        socialIconsDiv.appendChild(linkedinIcon);
+                    }
+                    if (github) {
+                        const githubIcon = createIcon('fab fa-github', github);
+                        socialIconsDiv.appendChild(githubIcon);
+                    }
+                    if (instagram) {
+                        const instagramIcon = createIcon('fab fa-instagram', instagram);
+                        socialIconsDiv.appendChild(instagramIcon);
+                    }
+                    if (twitter) {
+                        const twitterIcon = createIcon('fab fa-twitter', twitter);
+                        socialIconsDiv.appendChild(twitterIcon);
+                    }
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        function createIcon(className, url) {
+            const iconBox = document.createElement('span');
+            iconBox.className = 'icon-box';
+            const iconLink = document.createElement('a');
+            iconLink.href = url;
+            iconLink.target = '_blank';
+            iconLink.className = className;
+            iconBox.appendChild(iconLink);
+            return iconBox;
+        }
+
+      function downloadContact() {
+            const name = document.getElementById('name').textContent;
+            const title = document.getElementById('title').textContent;
+            const email = document.getElementById('email').textContent.replace('Email: ', '');
+            const phone = document.getElementById('phone').textContent.replace('Phone: ', '');
+            const website = document.getElementById('website').textContent;
+
+            const vCardContent = `BEGIN:VCARD
 VERSION:3.0
 FN:${name}
 TITLE:${title}
 EMAIL:${email}
 TEL:${phone}
-URL:${website}
-END:VCARD`
-            );
-        });
+LinkedIn:${linkedin}
+GitHub:${github}
+Twitter / X:${twitter}
+END:VCARD`;
+
+            const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'contact.vcf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
     </script>
 </body>
 </html>

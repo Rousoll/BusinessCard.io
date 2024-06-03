@@ -84,7 +84,7 @@
         </form>
         <button id="writeNFC">Write to NFC</button>
     </div>
-    <script>
+     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const name = document.getElementById('name').value;
@@ -96,8 +96,8 @@
             const profilePic = document.getElementById('profile-pic').files[0];
 
             const reader = new FileReader();
-            reader.onloadend = function() {
-                const profilePicDataUrl = reader.result;
+            reader.onload = function(event) {
+                const profilePicDataUrl = event.target.result;
                 const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&profilePic=${encodeURIComponent(profilePicDataUrl)}`;
                 window.location.href = `card.html?${queryString}`;
             };
@@ -108,40 +108,7 @@
                 window.location.href = `card.html?${queryString}`;
             }
         });
-
-        document.getElementById('writeNFC').addEventListener('click', async () => {
-            if ('NDEFReader' in window) {
-                try {
-                    const ndef = new NDEFReader();
-                    await ndef.scan();
-                    console.log('Scan started successfully.');
-                    ndef.onreadingerror = () => {
-                        console.log('Cannot read data from the NFC tag. Try another one.');
-                    };
-                    ndef.onreading = (event) => {
-                        console.log('NFC tag read:', event.message);
-                    };
-
-                    const name = document.getElementById('name').value;
-                    const title = document.getElementById('title').value;
-                    const email = document.getElementById('email').value;
-                    const phone = document.getElementById('phone').value;
-                    const linkedin = document.getElementById('linkedin').value;
-                    const github = document.getElementById('github').value;
-
-                    const nfcData = `Name: ${name}\nTitle: ${title}\nEmail: ${email}\nPhone: ${phone}\nLinkedIn: ${linkedin}\nGitHub: ${github}`;
-
-                    await ndef.write({
-                        records: [{ recordType: "text", data: nfcData }]
-                    });
-                    console.log('NFC tag written successfully.');
-                } catch (error) {
-                    console.error('Error: ', error);
-                }
-            } else {
-                alert('NFC not supported on this device.');
-            }
-        });
     </script>
+    
 </body>
 </html>

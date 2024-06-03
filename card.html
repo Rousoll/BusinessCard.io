@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .name {
+            font-size: 22px;
+            margin: 0;
+        }
+        .title {
+            color: gray;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .contact {
+            margin: 10px 0;
+        }
+        .social-links a {
+            display: block;
+            color: #007BFF;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img src="profile.jpg" alt="Profile Picture" class="profile-pic" id="profile-pic">
+        <h1 class="name" id="name"></h1>
+        <p class="title" id="title"></p>
+        <p class="contact" id="email"></p>
+        <p class="contact" id="phone"></p>
+        <div class="social-links">
+            <a href="#" id="linkedin" target="_blank">LinkedIn</a>
+            <a href="#" id="github" target="_blank">GitHub</a>
+        </div>
+        <button class="btn" id="save-contact">Save to Phone</button>
+    </div>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                name: params.get('name'),
+                title: params.get('title'),
+                email: params.get('email'),
+                phone: params.get('phone'),
+                linkedin: params.get('linkedin'),
+                github: params.get('github')
+            };
+        }
+
+        function populateCard() {
+            const params = getQueryParams();
+            document.getElementById('name').textContent = params.name;
+            document.getElementById('title').textContent = params.title;
+            document.getElementById('email').textContent = `Email: ${params.email}`;
+            document.getElementById('phone').textContent = `Phone: ${params.phone}`;
+            document.getElementById('linkedin').href = params.linkedin;
+            document.getElementById('github').href = params.github;
+        }
+
+        function saveContact() {
+            const params = getQueryParams();
+            const vcfData = `BEGIN:VCARD
+VERSION:3.0
+FN:${params.name}
+TITLE:${params.title}
+EMAIL:${params.email}
+TEL:${params.phone}
+URL:${params.linkedin}
+URL:${params.github}
+END:VCARD`;
+            
+            const blob = new Blob([vcfData], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${params.name}.vcf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        document.getElementById('save-contact').addEventListener('click', saveContact);
+
+        window.onload = populateCard;
+    </script>
+</body>
+</html>

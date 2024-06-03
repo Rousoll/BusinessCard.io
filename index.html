@@ -22,15 +22,15 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 90%; /* Adjusted to fit better on smaller screens */
-            max-width: 400px; /* Added to limit maximum width for larger screens */
+            width: 90%;
+            max-width: 400px;
             box-sizing: border-box;
             text-align: center;
         }
 
         .form-container h2 {
             margin-bottom: 20px;
-            color: #062c6e; /* Changed title color */
+            color: #062c6e;
         }
 
         .form-container label {
@@ -54,14 +54,39 @@
         }
 
         .form-container button {
-            background-color: #062c6e; /* Changed button background color */
-            color: white; /* Changed button text color */
+            background-color: #062c6e;
+            color: white;
             border: none;
             cursor: pointer;
         }
 
         .form-container button:hover {
-            background-color: #0056b3; /* Changed button hover background color */
+            background-color: #0056b3;
+        }
+
+        .website-field,
+        .logo-field,
+        .social-media-field {
+            display: none;
+        }
+
+        .expand-collapse {
+            text-decoration: none;
+            color: #062c6e;
+            cursor: default;
+            margin-bottom: 10px;
+            display: inline-block;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #062c6e;
+            border-radius: 25px;
+            padding: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .expand-collapse:hover {
+            background-color: #062c6e;
+            color: white;
         }
     </style>
 </head>
@@ -81,20 +106,29 @@
             <label for="phone">Phone</label>
             <input type="tel" id="phone" placeholder="Phone" required>
             
-            <label for="linkedin">LinkedIn URL</label>
-            <input type="url" id="linkedin" placeholder="LinkedIn URL">
-            
-            <label for="github">GitHub URL</label>
-            <input type="url" id="github" placeholder="GitHub URL">
-            
-            <label for="instagram">Instagram URL</label>
-            <input type="url" id="instagram" placeholder="Instagram URL">
-            
-            <label for="twitter">Twitter URL</label>
-            <input type="url" id="twitter" placeholder="Twitter URL">
-            
-            <label for="website">Website URL</label>
-            <input type="url" id="website" placeholder="Website URL">
+            <div class="logo-field">
+                <label for="logo">Display Logo</label>
+                <input type="checkbox" id="logo">
+            </div>
+
+            <div class="website-field">
+                <label for="website">Website URL</label>
+                <input type="url" id="website" placeholder="Website URL">
+            </div>
+            <div class="expand-collapse" id="expandCollapse">+</div>
+            <div class="social-media-field">
+                <label for="linkedin">LinkedIn URL</label>
+                <input type="url" id="linkedin" placeholder="LinkedIn URL">
+                
+                <label for="github">GitHub URL</label>
+                <input type="url" id="github" placeholder="GitHub URL">
+                
+                <label for="instagram">Instagram URL</label>
+                <input type="url" id="instagram" placeholder="Instagram URL">
+                
+                <label for="twitter">Twitter URL</label>
+                <input type="url" id="twitter" placeholder="Twitter URL">
+            </div>
             
             <button type="submit">Generate Business Card</button>
         </form>
@@ -106,14 +140,26 @@
             const title = document.getElementById('title').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
+            const website = document.getElementById('website').value;
             const linkedin = document.getElementById('linkedin').value;
             const github = document.getElementById('github').value;
             const instagram = document.getElementById('instagram').value;
             const twitter = document.getElementById('twitter').value;
-            const website = document.getElementById('website').value;
+            const logoChecked = document.getElementById('logo').checked;
 
-            const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&instagram=${encodeURIComponent(instagram)}&twitter=${encodeURIComponent(twitter)}&website=${encodeURIComponent(website)}`;
+            const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&website=${encodeURIComponent(website)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&instagram=${encodeURIComponent(instagram)}&twitter=${encodeURIComponent(twitter)}&logo=${logoChecked}`;
             window.location.href = `card.html?${queryString}`;
+        });
+
+        document.getElementById('expandCollapse').addEventListener('click', function() {
+            const socialMediaField = document.querySelector('.social-media-field');
+            if (socialMediaField.style.display === 'none') {
+                socialMediaField.style.display = 'block';
+                document.getElementById('expandCollapse').textContent = '-';
+            } else {
+                socialMediaField.style.display = 'none';
+                document.getElementById('expandCollapse').textContent = '+';
+            }
         });
     </script>
 </body>

@@ -3,119 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Card Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>Business Card</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
         }
 
-        .form-container {
+        .card-container {
+            position: relative;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
             width: 320px;
-            box-sizing: border-box;
             text-align: center;
         }
 
-        .form-container h2 {
+        .card-container img {
+            width: 150px;
+            height: auto;
             margin-bottom: 20px;
-            color: #007BFF;
         }
 
-        .form-container label {
-            display: block;
-            margin-bottom: 5px;
-            text-align: left;
-            font-weight: bold; /* Added */
-        }
-
-        .form-container input,
-        .form-container button {
-            width: 100%;
+        .card-container h1 {
             margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
+            color: #062c6e;
         }
 
-        .form-container input[type="file"] {
-            padding: 3px;
+        .card-container p {
+            margin-bottom: 5px;
+            color: #062c6e;
         }
 
-        .form-container button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
+        .icon-group {
+            margin-top: 25px;
+        }
+
+        .icon-box {
+            position: relative;
+            font-size: 24px;
+            height: 45px;
+            width: 45px;
+            line-height: 45px;
+            display: inline-block;
+            border: 2px solid #062c6e;
+            border-radius: 5px; /* Rounded corners */
+            margin: 5px;
+            text-align: center;
             cursor: pointer;
+            transition: all ease 0.5s;
         }
 
-        .form-container button:hover {
-            background-color: #0056b3;
+        .icon-box a {
+            color: #062c6e;
+            text-decoration: none;
+        }
+
+        .icon-box:hover {
+            background-color: #062c6e;
+            color: #fff;
+        }
+
+        .website a {
+            color: #062c6e;
+            text-decoration: none;
+        }
+
+        .website a:hover {
+            color: #3f3f3f;
+        }
+
+        .vcard-link {
+            display: block;
+            margin-top: 20px;
+            color: #062c6e;
+            text-decoration: none;
+        }
+
+        .vcard-link:hover {
+            color: #3f3f3f;
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Enter Your Contact Info</h2>
-        <form id="contactForm">
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Name" required>
-            
-            <label for="title">Title</label>
-            <input type="text" id="title" placeholder="Title" required>
-            
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Email" required>
-            
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" placeholder="Phone" required>
-            
-            <label for="linkedin">LinkedIn URL</label>
-            <input type="url" id="linkedin" placeholder="LinkedIn URL">
-            
-            <label for="github">GitHub URL</label>
-            <input type="url" id="github" placeholder="GitHub URL">
-            
-            <label for="instagram">Instagram URL</label>
-            <input type="url" id="instagram" placeholder="Instagram URL">
-            
-            <label for="twitter">Twitter URL</label>
-            <input type="url" id="twitter" placeholder="Twitter URL">
-            
-            <label for="website">Website URL</label>
-            <input type="url" id="website" placeholder="Website URL">
-            
-            <button type="submit">Generate Business Card</button>
-        </form>
+    <div class="card-container">
+        <img src="https://www.ramworld.net/wp-content/uploads/2024/01/ramworld-300x300-1.png" alt="Ramworld Logo">
+        <h1 id="name"></h1>
+        <p id="title"></p>
+        <p id="email"></p>
+        <p id="phone"></p>
+        <div class="icon-group">
+            <span class="icon-box" id="linkedin"><a href="#" class="fab fa-linkedin"></a></span>
+            <span class="icon-box" id="github"><a href="#" class="fab fa-github"></a></span>
+            <span class="icon-box" id="instagram"><a href="#" class="fab fa-instagram"></a></span>
+            <span class="icon-box" id="twitter"><a href="#" class="fas fa-times"></a></span>
+        </div>
+        <p class="website"><a href="#" class="link" id="website">www.example.com</a></p>
+        <a href="#" class="vcard-link" id="downloadLink" download="contact.vcf">Save Contact</a>
     </div>
-<script>
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-        const name = document.getElementById('name').value;
-        const title = document.getElementById('title').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const linkedin = document.getElementById('linkedin').value;
-        const github = document.getElementById('github').value;
-        const instagram = document.getElementById('instagram').value;
-        const twitter = document.getElementById('twitter').value;
-        const website = document.getElementById('website').value;
 
-        const queryString = `name=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&linkedin=${encodeURIComponent(linkedin)}&github=${encodeURIComponent(github)}&instagram=${encodeURIComponent(instagram)}&twitter=${encodeURIComponent(twitter)}&website=${encodeURIComponent(website)}`;
-        window.location.href = `card.html?${queryString}`;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('name') || '';
+            const title = urlParams.get('title') || '';
+            const email = urlParams.get('email') || '';
+            const phone = urlParams.get('phone') || '';
+            const linkedin = urlParams.get('linkedin') || '';
+            const github = urlParams.get('github') || '';
+            const instagram = urlParams.get('instagram') || '';
+            const twitter = urlParams.get('twitter') || '';
+            const website = urlParams.get('website') || '';
 
-        return false; // Prevent default form submission
-    });
-</script>
+            document.getElementById('name').textContent = name;
+            document.getElementById('title').textContent = title;
+            document.getElementById('email').textContent = 'Email: ' + email;
+            document.getElementById('phone').textContent = 'Phone: ' + phone;
+            document.getElementById('linkedin').innerHTML = linkedin ? '<a href="' + linkedin + '" target="_blank" class="fab fa-linkedin"></a>' : '';
+            document.getElementById('github').innerHTML = github ? '<a href="' + github + '" target="_blank" class="fab fa-github"></a>' : '';
+            document.getElementById('instagram').innerHTML = instagram ? '<a href="' + instagram + '" target="_blank" class="fab fa-instagram"></a>' : '';
+            document.getElementById('twitter').innerHTML = twitter ? '<a href="' + twitter + '" target="_blank" class="fas fa-times"></a>' : '';
+            document.getElementById('website').href = website;
+            document.getElementById('downloadLink').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(
+                `BEGIN:VCARD
+VERSION:3.0
+FN:${name}
+TITLE:${title}
+EMAIL:${email}
+TEL:${phone}
+URL:${website}
+END:VCARD`
+            );
+        });
+    </script>
 </body>
 </html>

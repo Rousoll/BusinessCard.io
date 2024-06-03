@@ -88,10 +88,9 @@
             document.getElementById('email').textContent = `Email: ${params.email}`;
             document.getElementById('phone').textContent = `Phone: ${params.phone}`;
             document.getElementById('linkedin').innerHTML = `<a href="${params.linkedin}" target="_blank">LinkedIn</a>`;
-            document.getElementById('github').innerHTML = `<a href="${params.github}" target="_blank">GitHub</a>`;
-            document.getElementById('instagram').innerHTML = params.instagram ? `<a href="${params.instagram}" target="_blank">Instagram</a>` : '';
-            document.getElementById('twitter').innerHTML = params.twitter ? `<a href="${params.twitter}" target="_blank">Twitter</a>` : '';
-            document.getElementById('website').innerHTML = params.website ? `<a href="${params.website}" target="_blank">Website</a>` : '';
+            document.getElementById('instagram').innerHTML = `<a href="${params.instagram}" target="_blank">Instagram</a>`;
+            document.getElementById('twitter').innerHTML = `<a href="${params.twitter}" target="_blank">Twitter / X</a>`;
+            document.getElementById('website').innerHTML = `<a href="${params.website}" target="_blank">Website</a>`;
         }
 
         window.onload = populateCard;

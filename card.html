@@ -164,18 +164,27 @@
     }
 
     function downloadContact() {
-        const vCardContent = `BEGIN:VCARD
+        let vCardContent = `BEGIN:VCARD
 VERSION:3.0
 FN:${name}
 TITLE:${title}
 EMAIL:${email}
 TEL:${phone}
-URL:${website}
-${linkedin ? 'X-SOCIALPROFILE;TYPE=linkedin:' + linkedin : ''}
-${github ? 'X-SOCIALPROFILE;TYPE=github:' + github : ''}
-${instagram ? 'X-SOCIALPROFILE;TYPE=instagram:' + instagram : ''}
-${twitter ? 'X-SOCIALPROFILE;TYPE=twitter:' + twitter : ''}
-END:VCARD`;
+URL:${website}\n`;
+        if (linkedin) {
+            vCardContent += `X-SOCIALPROFILE;TYPE=linkedin:${linkedin}\n`;
+        }
+        if (github) {
+            vCardContent += `X-SOCIALPROFILE;TYPE=github:${github}\n`;
+        }
+        if (instagram) {
+            vCardContent += `X-SOCIALPROFILE;TYPE=instagram:${instagram}\n`;
+        }
+        if (twitter) {
+            vCardContent += `X-SOCIALPROFILE;TYPE=twitter:${twitter}\n`;
+        }
+        vCardContent += `END:VCARD`;
+
         const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -187,7 +196,6 @@ END:VCARD`;
         window.URL.revokeObjectURL(url);
     }
 </script>
-
 </body>
 </html>
            
